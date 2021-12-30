@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0b8fe57f66ea41c0aa51596792d71e96" Name="Diagram1">
+        <EntityTypeShape EntityType="ShoppingModel.Category" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.OrderDetail" Width="1.5" PointX="7.5" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.Order" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.Product" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.Role" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.User" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.UserType" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShoppingModel.UserType_Role" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="ShoppingModel.FK__Products__Catego__239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK__OrderDeta__Order__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK__OrderDeta__Produ__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK__Orders__UserID__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK__Products__Create__276EDEB3" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK__UserType___RoleI__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK__Users__UserTypeI__286302EC" ManuallyRouted="false" />
+        <AssociationConnector Association="ShoppingModel.FK__UserType___UserT__2C3393D0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
