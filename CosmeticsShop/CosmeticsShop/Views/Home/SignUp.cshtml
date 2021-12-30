@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInLeft;">
+            <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+            <li class="active">Đăng ký</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+    <div class="register">
+        <h2>Đăng ký</h2>
+        @using (Html.BeginForm("SignUp", "Home",FormMethod.Post))
+        {
+            <form action="#" method="post">
+                <div class="col-md-6  register-top-grid">
+
+                    <div class="mation">
+                        <span>Họ tên</span>
+                        <input type="text" name="Name" required>
+
+                        <span>Email</span>
+                        <input type="text" name="Email" required>
+
+                        <span>Số điện thoại</span>
+                        <input type="text" name="Phone" required>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <div class=" col-md-6 register-bottom-grid">
+
+                    <div class="mation">
+                        <span>Mật khẩu</span>
+                        <input type="password" name="Password" required>
+                        <span>Nhập lại mật khẩu</span>
+                        <input type="password" name="PasswordMatch" required>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </form>
+            <div class="register-but">
+                <form action="#" method="post">
+                    <input type="submit" value="Đăng ký">
+                    <div class="clearfix"> </div>
+                </form>
+            </div>
+        }
+    </div>
+</div>

@@ -6,6 +6,32 @@
     List<CosmeticsShop.Models.Category> categories = ViewBag.ListCategory as List<CosmeticsShop.Models.Category>;
     List<CosmeticsShop.Models.Product> products = ViewBag.ListProduct as List<CosmeticsShop.Models.Product>;
 }
+<script>
+    $(document).ready(function () {
+        $('.item_add').click(function () {
+            event.preventDefault();
+            var ID = $(this).data("id");
+            $.ajax({
+                url: '/Cart/AddItem',
+                data: {
+                    ProductID: ID
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == true) {
+                        $.notify("Thêm vào giỏ hàng thành công!", "success");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 2000);
+                    } else {
+                        $.notify("Số lượng không đủ!", "error");
+                    }
+                },
+            });
+        })
+    });
+</script>
 <div class="breadcrumbs">
     <div class="container">
         <ol class="breadcrumb breadcrumb1 animated wow slideInLeft animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInLeft;">
@@ -24,7 +50,7 @@
                 int count = 1;
             loop:
                 <div class="content-top1">
-                    @for (int i = count-1; i < products.Count; i++)
+                    @for (int i = count - 1; i < products.Count; i++)
                     {
                         count += 1;
                         if (count % 3 == 0)
@@ -39,7 +65,7 @@
                                 <h3><a href="single.html">@products[i].Name</a></h3>
                                 <div class="price">
                                     <h5 class="item_price">@products[i].Price.Value.ToString("#,##")₫</h5>
-                                    <a href="#" class="item_add">Chọn mua</a>
+                                    <a href="#" class="item_add" data-id="@products[i].ID">Chọn mua</a>
                                     <div class="clearfix"> </div>
                                 </div>
                             </div>
