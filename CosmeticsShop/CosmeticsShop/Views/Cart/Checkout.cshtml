@@ -7,6 +7,9 @@
 }
 <script>
     $(document).ready(function () {
+        $('.qty').on('keydown', function (e) {
+            e.preventDefault();
+        });
         $('.qty').change(function () {
             var ID = $(this).data("id");
             var Quantity = $(this).val();
@@ -30,7 +33,7 @@
                             type: 'GET',
                             dataType: 'json',
                             success: function (response) {
-                                $("#" + ID).html(response.SubTotal)
+                                $("#" + ID).html(response.SubTotal + "₫")
                             },
                         });
 
@@ -42,7 +45,7 @@
                             type: 'GET',
                             dataType: 'json',
                             success: function (response) {
-                                $(".total-cart").html("Tổng: " + response.Total)
+                                $(".total-cart").html("Tổng: " + response.Total + "₫")
                             },
                         });
 
@@ -108,7 +111,15 @@
             }
             else
             {
-                <a href="#" class=" to-buy">TIẾN HÀNH ĐẶT HÀNG</a>
+                <p>Phương thức thanh toán:</p>
+                <form action="/Cart/AddOrder" method="post">
+                    <select name="payment">
+                        <option value="cod">Tiền mặt (COD)</option>
+                        <option value="paypal">Thanh toán với Paypal</option>
+                        <option value="momo">Thanh toán với Momo</option>
+                    </select> <br />
+                    <button class="to-buy">TIẾN HÀNH ĐẶT HÀNG</button>
+                </form>
             }
         }
         else

@@ -130,8 +130,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Extensions\MomoSecurity.cs" />
+    <Compile Include="Extensions\PaymentRequest.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -307,6 +310,7 @@
     <Content Include="Views\User\ConfirmEmailLink.cshtml" />
     <Content Include="Views\Home\SignIn.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Payment\ReturnUrl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
