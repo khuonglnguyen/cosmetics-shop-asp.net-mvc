@@ -48,7 +48,6 @@ namespace CosmeticsShop.Controllers
             if (check != null)
             {
                 Session["User"] = check;
-                Session["Cart"] = new List<ItemCart>();
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Message = "Email hoặc mật khẩu không đúng";

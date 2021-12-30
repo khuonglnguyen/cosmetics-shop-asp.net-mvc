@@ -14,6 +14,10 @@ namespace CosmeticsShop.Controllers
         public JsonResult AddItem(int ProductID)
         {
             Product product = db.Products.SingleOrDefault(x => x.ID == ProductID);
+            if (Session["Cart"] == null)
+            {
+                Session["Cart"] = new List<ItemCart>();
+            }
             List<ItemCart> itemCarts = Session["Cart"] as List<ItemCart>;
             // Kiểm tra số lượng tồn
             if (itemCarts.Count > 0 && product.Quantity <= itemCarts.FirstOrDefault(x => x.ProductID == product.ID).Quantity)
@@ -39,6 +43,48 @@ namespace CosmeticsShop.Controllers
             }
             Session["Cart"] = itemCarts;
             return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetTotalCart()
+        {
+            List<ItemCart> itemCarts = Session["Cart"] as List<ItemCart>;
+            return Json(new { TotalPrice = itemCarts.Sum(x => x.ProductPrice * x.Quantity).ToString("#,##"), TotalQuantity = itemCarts.Sum(x => x.Quantity) }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public JsonResult UpdateQuantity(int ProductID, int Quantity)
+        {
+            List<ItemCart> itemCarts = Session["Cart"] as List<ItemCart>;
+            // Kiểm tra số lượng tồn
+            Product product = db.Products.SingleOrDefault(x => x.ID == ProductID);
+            if (itemCarts.Count > 0 && product.Quantity <= Quantity)
+            {
+                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+            }
+            for (int i = 0; i < itemCarts.Count; i++)
+            {
+                if (itemCarts[i].ProductID == ProductID)
+                {
+                    itemCarts[i].Quantity = Quantity;
+                }
+            }
+            Session["Cart"] = itemCarts;
+            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetSubTotal(int ProductID = 1)
+        {
+            List<ItemCart> itemCarts = Session["Cart"] as List<ItemCart>;
+            return Json(new { SubTotal = itemCarts.Where(x => x.ProductID == ProductID).Sum(x => x.ProductPrice * x.Quantity).ToString("#,##") }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult GetTotal()
+        {
+            List<ItemCart> itemCarts = Session["Cart"] as List<ItemCart>;
+            return Json(new { Total = itemCarts.Sum(x => x.ProductPrice * x.Quantity).ToString("#,##") }, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Checkout()
+        {
+            return View();
         }
     }
 }

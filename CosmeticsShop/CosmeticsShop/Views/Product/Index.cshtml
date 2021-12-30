@@ -21,9 +21,15 @@
                 success: function (response) {
                     if (response.status == true) {
                         $.notify("Thêm vào giỏ hàng thành công!", "success");
-                        setTimeout(function () {
-                            location.reload();
-                        }, 2000);
+
+                        $.ajax({
+                            url: '/Cart/GetTotalCart',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (response) {
+                                $(".simpleCart_total").html(response.TotalPrice + "₫ (" + response.TotalQuantity + ")")
+                            },
+                        });
                     } else {
                         $.notify("Số lượng không đủ!", "error");
                     }

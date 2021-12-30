@@ -306,10 +306,10 @@
     <Content Include="Views\User\ConfirmEmail.cshtml" />
     <Content Include="Views\User\ConfirmEmailLink.cshtml" />
     <Content Include="Views\Home\SignIn.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

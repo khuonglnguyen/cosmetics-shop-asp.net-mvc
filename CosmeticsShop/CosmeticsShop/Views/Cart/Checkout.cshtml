@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+
+    List<CosmeticsShop.Models.ItemCart> itemCarts = Session["Cart"] as List<CosmeticsShop.Models.ItemCart>;
+}
+<script>
+    $(document).ready(function () {
+        $('.qty').change(function () {
+            var ID = $(this).data("id");
+            var Quantity = $(this).val();
+            $.ajax({
+                url: '/Cart/UpdateQuantity',
+                data: {
+                    ProductID: ID,
+                    Quantity: Quantity
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == true) {
+                        $.notify("Cập nhật thành công!", "success");
+
+                        $.ajax({
+                            url: '/Cart/GetSubTotal',
+                            data: {
+                                ProductID: ID
+                            },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (response) {
+                                $("#" + ID).html(response.SubTotal)
+                            },
+                        });
+
+                        $.ajax({
+                            url: '/Cart/GetTotal',
+                            data: {
+                                ProductID: ID
+                            },
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (response) {
+                                $(".total-cart").html("Tổng: " + response.Total)
+                            },
+                        });
+
+                        $.ajax({
+                            url: '/Cart/GetTotalCart',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (response) {
+                                $(".simpleCart_total").html(response.TotalPrice + "₫ (" + response.TotalQuantity + ")")
+                            },
+                        });
+                    } else {
+                        $.notify("Số lượng không đủ!", "error");
+                    }
+                },
+            });
+        })
+    });
+</script>
+<div class="breadcrumbs">
+    <div class="container">
+        <ol class="breadcrumb breadcrumb1 animated wow slideInLeft animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInLeft;">
+            <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
+            <li class="active">Giỏ hàng</li>
+        </ol>
+    </div>
+</div>
+<!---->
+<div class="container">
+    <div class="check-out">
+        <h2>Giỏ hàng</h2>
+        @if (itemCarts != null && itemCarts.Count > 0)
+        {
+            <table>
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+                @foreach (var item in itemCarts)
+                {
+                    <tr>
+                        <td class="ring-in">
+                            <a href="/Product/Details/@item.ProductID" class="at-in"><img src="~/Content/images/@item.ProductImage" class="img-responsive" alt=""></a>
+                            <div class="sed">
+                                <h5>@item.ProductName</h5>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </td>
+                        <td class="check"><input type="number" class="qty" data-id="@item.ProductID" value="@item.Quantity" style="width:100px" min="1"></td>
+                        <td>@item.ProductPrice.ToString("#,##")₫</td>
+                        <td id="@item.ProductID">@((item.ProductPrice * item.Quantity).ToString("#,##"))₫</td>
+                    </tr>
+                }
+                <tr>
+                    <th class="total-cart">Tổng: @itemCarts.Sum(x => x.Quantity * x.ProductPrice).ToString("#,##")₫</th>
+                </tr>
+            </table>
+            if (Session["User"] == null)
+            {
+                <a href="/Home/SignIn" class=" to-buy">ĐĂNG NHẬP ĐỂ ĐẶT HÀNG</a>
+            }
+            else
+            {
+                <a href="#" class=" to-buy">TIẾN HÀNH ĐẶT HÀNG</a>
+            }
+        }
+        else
+        {
+            <h3> Giỏ hàng hiện đang rỗng</h3>
+            <div class="clearfix">
+            </div>
+        }
+    </div>
+</div>
