@@ -146,5 +146,10 @@ namespace CosmeticsShop.Controllers
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }
+        public ActionResult Message(string mess)
+        {
+            ViewBag.Message = mess;
+            return View();
+        }
     }
 }
