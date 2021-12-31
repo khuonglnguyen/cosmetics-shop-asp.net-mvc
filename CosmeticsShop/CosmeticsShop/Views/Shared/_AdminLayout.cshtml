@@ -66,9 +66,9 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-comments"></i>
-                        <span class="badge badge-danger navbar-badge">3</span>
+                        <span class="badge badge-danger navbar-badge" id="messTotalNoti">3</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="messageNoti">
                         <a href="#" class="dropdown-item">
                             <!-- Message Start -->
                             <div class="media">
@@ -79,38 +79,6 @@
                                         <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                                     </h3>
                                     <p class="text-sm">Call me whenever you can...</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="~/Content/Admin/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        John Pierce
-                                        <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">I got your message bro</p>
-                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                </div>
-                            </div>
-                            <!-- Message End -->
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <!-- Message Start -->
-                            <div class="media">
-                                <img src="~/Content/Admin/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                <div class="media-body">
-                                    <h3 class="dropdown-item-title">
-                                        Nora Silvester
-                                        <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                    </h3>
-                                    <p class="text-sm">The subject goes here</p>
                                     <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
                                 </div>
                             </div>
@@ -278,5 +246,79 @@
     <script src="~/Content/Admin/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="~/Content/Admin/js/pages/dashboard.js"></script>
+
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <script>
+        $(function () {
+            var chat = $.connection.chatHubs
+            chat.client.displayMessage = function () {
+                getMessageNotiData();
+            }
+            $.connection.hub.start();
+            getMessageNotiData();
+        })
+        function getMessageNotiData() {
+            var $noti = $('#messageNoti')
+            var $totalNofi = $('#messTotalNoti')
+            $.ajax({
+                url: location.origin + "/Chat/GetNotiMessage",
+                type: 'GET',
+                dataType: 'JSON',
+                success: function (data) {
+                    $noti.empty()
+                    $totalNofi.empty()
+                    if (data.length > 0) {
+                        $totalNofi.append(
+                            data.length
+                        )
+                        $.each(data, function (i, model) {
+                            $noti.append(
+                                '<a href = "/Chat/Chating?WithUserID=' + model.FromUserID + '&MessageID=' + model.ID + '" class= "dropdown-item" id="' + model.FromUserID + '">' +
+                                '<div class="media">' +
+                                '<img src="/Content/images/' + model.FromUserAvatar + '" alt="User Avatar" class="img-size-50 mr-3 img-circle">' +
+                                '<div class="media-body">' +
+                                '<h3 class="dropdown-item-title">'
+                                + model.FromUserName +
+                                '<span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>' +
+                                '</h3>' +
+                                '<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>' + model.CreatedDate + ' phút trước</p>' +
+                                '</div>' +
+                                '</div>' +
+                                '</a>'
+                            );
+                        })
+                    } else {
+                        $totalNofi.append(
+                            0
+                        )
+                        $noti.append(
+                            '<a href="/Chat/" class="dropdown-item dropdown-footer">Xem tất cả tin nhắn</a>'
+                        );
+                    }
+                }
+            })
+        }
+        $('#btn-chat').click(function send() {
+            var fromId = $('#user-id').val();
+            var content = $('#btn-input').val();
+            $.ajax({
+                url: location.origin + "/Chat/Send",
+                data: { FromUserID: fromId, ToUserID: 2, Content: content, Side: "Admin" },
+                type: 'POST',
+                dataType: 'JSON',
+                success: function (data) {
+                    if (data.status) {
+                        getLastData();
+                        $('#btn-input').val("");
+                        $(".chatbox__body").animate({ scrollTop: 2000000 });
+                    } else {
+                        alert("Có lỗi xảy ra");
+                        return;
+                    }
+                }
+            })
+        })
+    </script>
 </body>
 </html>

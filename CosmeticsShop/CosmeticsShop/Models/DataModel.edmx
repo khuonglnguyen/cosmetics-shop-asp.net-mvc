@@ -13,6 +13,17 @@
           <Property Name="Name" Type="nvarchar" MaxLength="256" />
           <Property Name="IsActive" Type="bit" />
         </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FromUserID" Type="int" />
+          <Property Name="ToUserID" Type="int" />
+          <Property Name="Content" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Send" Type="bit" />
+        </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
             <PropertyRef Name="ID" />
@@ -91,6 +102,30 @@
           <Property Name="UserTypeID" Type="int" />
           <Property Name="RoleID" Type="int" />
         </EntityType>
+        <Association Name="FK__Message__FromUse__36B12243">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__ToUserI__37A5467C">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Message" Type="Self.Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="ToUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__OrderDeta__Order__25869641">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
           <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
@@ -189,6 +224,7 @@
         </Association>
         <EntityContainer Name="ShoppingModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
@@ -196,6 +232,14 @@
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType_Role" EntityType="Self.UserType_Role" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Message__FromUse__36B12243" Association="Self.FK__Message__FromUse__36B12243">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__ToUserI__37A5467C" Association="Self.FK__Message__ToUserI__37A5467C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Message" EntitySet="Message" />
+          </AssociationSet>
           <AssociationSet Name="FK__OrderDeta__Order__25869641" Association="Self.FK__OrderDeta__Order__25869641">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderDetails" EntitySet="OrderDetails" />
@@ -235,6 +279,7 @@
       <Schema Namespace="ShoppingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ShoppingEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="ShoppingModel.Category" />
+          <EntitySet Name="Messages" EntityType="ShoppingModel.Message" />
           <EntitySet Name="OrderDetails" EntityType="ShoppingModel.OrderDetail" />
           <EntitySet Name="Orders" EntityType="ShoppingModel.Order" />
           <EntitySet Name="Products" EntityType="ShoppingModel.Product" />
@@ -245,6 +290,14 @@
           <AssociationSet Name="FK__Products__Catego__239E4DCF" Association="ShoppingModel.FK__Products__Catego__239E4DCF">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__FromUse__36B12243" Association="ShoppingModel.FK__Message__FromUse__36B12243">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Message__ToUserI__37A5467C" Association="ShoppingModel.FK__Message__ToUserI__37A5467C">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Message" EntitySet="Messages" />
           </AssociationSet>
           <AssociationSet Name="FK__OrderDeta__Order__25869641" Association="ShoppingModel.FK__OrderDeta__Order__25869641">
             <End Role="Order" EntitySet="Orders" />
@@ -283,6 +336,19 @@
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Products" Relationship="ShoppingModel.FK__Products__Catego__239E4DCF" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FromUserID" Type="Int32" />
+          <Property Name="ToUserID" Type="Int32" />
+          <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Send" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="ShoppingModel.FK__Message__FromUse__36B12243" FromRole="Message" ToRole="User" />
+          <NavigationProperty Name="User1" Relationship="ShoppingModel.FK__Message__ToUserI__37A5467C" FromRole="Message" ToRole="User" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -354,6 +420,8 @@
           <Property Name="UserTypeID" Type="Int32" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Avatar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Messages" Relationship="ShoppingModel.FK__Message__FromUse__36B12243" FromRole="User" ToRole="Message" />
+          <NavigationProperty Name="Messages1" Relationship="ShoppingModel.FK__Message__ToUserI__37A5467C" FromRole="User" ToRole="Message" />
           <NavigationProperty Name="Orders" Relationship="ShoppingModel.FK__Orders__UserID__267ABA7A" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Products" Relationship="ShoppingModel.FK__Products__Create__276EDEB3" FromRole="User" ToRole="Product" />
           <NavigationProperty Name="UserType" Relationship="ShoppingModel.FK__Users__UserTypeI__286302EC" FromRole="User" ToRole="UserType" />
@@ -386,6 +454,30 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__FromUse__36B12243">
+          <End Type="ShoppingModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ShoppingModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="FromUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Message__ToUserI__37A5467C">
+          <End Type="ShoppingModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="ShoppingModel.Message" Role="Message" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Message">
+              <PropertyRef Name="ToUserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -484,6 +576,18 @@
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="ShoppingModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="Send" ColumnName="Send" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="ToUserID" ColumnName="ToUserID" />
+                <ScalarProperty Name="FromUserID" ColumnName="FromUserID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
