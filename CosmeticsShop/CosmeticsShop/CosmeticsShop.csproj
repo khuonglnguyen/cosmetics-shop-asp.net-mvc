@@ -2335,10 +2335,11 @@
     <Content Include="Views\OrderManage\Details.cshtml" />
     <Content Include="Views\User\CheckoutOrder.cshtml" />
     <Content Include="Views\User\OrderDetails.cshtml" />
+    <Content Include="Views\Chat\Index.cshtml" />
+    <Content Include="Views\Chat\Chating.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Chat\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

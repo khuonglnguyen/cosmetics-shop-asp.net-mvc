@@ -10,6 +10,21 @@ namespace CosmeticsShop.Controllers
     public class ChatController : Controller
     {
         ShoppingEntities db = new ShoppingEntities();
+        public ActionResult Index()
+        {
+            User user = Session["User"] as User;
+            IEnumerable<User> listUser = db.Users.ToList();
+            List<Message> messages = new List<Message>();
+            foreach (User item in listUser)
+            {
+                Message message = db.Messages.Where(x => x.FromUserID == item.ID && x.FromUserID != user.ID).ToList().LastOrDefault();
+                if (message != null)
+                {
+                    messages.Add(message);
+                }
+            }
+            return View(messages);
+        }
         public ActionResult Chating(int WithUserID, int MessageID = 0)
         {
             IEnumerable<Message> listMessage;
