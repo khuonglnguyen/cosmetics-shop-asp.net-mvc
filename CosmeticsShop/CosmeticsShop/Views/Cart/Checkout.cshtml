@@ -59,6 +59,9 @@
                         });
                     } else {
                         $.notify("Số lượng không đủ!", "error");
+                        setTimeout(function () {
+                                window.location.reload();
+                        }, 1500);
                     }
                 },
             });

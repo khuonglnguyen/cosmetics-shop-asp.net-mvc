@@ -38,6 +38,7 @@
                     {
                         <input type="text" name="ID" value="@Model.ID" hidden />
                         <div class="card-body">
+                            <span class="badge bg-success">@ViewBag.Message</span>
                             <div class="form-group">
                                 <label>Tên</label>
                                 <input type="text" class="form-control" value="@Model.Name" required name="Name">
@@ -101,6 +102,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
+                            <a href="/ProductManage/" class="btn btn-default">Trở lại</a>
                             <button type="submit" class="btn btn-primary">Lưu</button>
                         </div>
                     }
