@@ -10,8 +10,25 @@ namespace CosmeticsShop.Controllers
     public class CategoryManageController : Controller
     {
         ShoppingEntities db = new ShoppingEntities();
+        public bool CheckRole(string type)
+        {
+            Models.User user = Session["User"] as Models.User;
+            if (user.UserType.Name == type)
+            {
+                return true;
+            }
+            return false;
+        }
         public ActionResult Index(string keyword = "")
         {
+            if (CheckRole("Admin"))
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Admin");
+            }
             List<Category> categories = new List<Category>();
             if (keyword != "")
             {
@@ -32,6 +49,14 @@ namespace CosmeticsShop.Controllers
         }
         public ActionResult Details(int ID)
         {
+            if (CheckRole("Admin"))
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Admin");
+            }
             Category category = db.Categories.Find(ID);
             return View(category);
         }

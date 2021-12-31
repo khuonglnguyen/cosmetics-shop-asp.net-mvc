@@ -11,7 +11,24 @@ namespace CosmeticsShop.Controllers
         // GET: Admin
         public ActionResult Index()
         {
-            return View();
+            if (CheckRole("Admin"))
+            {
+                return View();
+            }
+            else if (CheckRole("CSKH"))
+            {
+                return View();
+            } 
+            return RedirectToAction("Index","Home");
+        }
+        public bool CheckRole(string type)
+        {
+            Models.User user = Session["User"] as Models.User;
+            if (user.UserType.Name == type)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

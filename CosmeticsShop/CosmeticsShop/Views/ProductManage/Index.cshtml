@@ -75,13 +75,13 @@
                                     <td>
                                         @if (item.IsActive.Value)
                                         {
-                                            <button onclick="location.href='/ProductManage/ToggleActive/@item.ID'">Khóa</button>
+                                            <button class="btn btn-outline-danger" onclick="location.href='/ProductManage/ToggleActive/@item.ID'">Khóa</button>
                                         }
                                         else
                                         {
-                                            <button onclick="location.href='/ProductManage/ToggleActive/@item.ID'">Mở</button>
+                                            <button class="btn btn-outline-success" onclick="location.href='/ProductManage/ToggleActive/@item.ID'">Mở</button>
                                         }
-                                        <button onclick="location.href='/ProductManage/Details/@item.ID'">Chi tiết/Sửa</button>
+                                        <button class="btn btn-primary" onclick="location.href='/ProductManage/Details/@item.ID'">Chi tiết/Sửa</button>
                                     </td>
                                 </tr>
                             }

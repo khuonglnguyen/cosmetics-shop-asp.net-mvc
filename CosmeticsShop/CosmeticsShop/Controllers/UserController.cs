@@ -12,6 +12,15 @@ namespace CosmeticsShop.Controllers
     public class UserController : Controller
     {
         ShoppingEntities db = new ShoppingEntities();
+        public bool CheckRole(string type)
+        {
+            Models.User user = Session["User"] as Models.User;
+            if (user.UserType.Name == type)
+            {
+                return true;
+            }
+            return false;
+        }
         // GET: User
         public ActionResult Index()
         {
@@ -63,12 +72,28 @@ namespace CosmeticsShop.Controllers
         }
         public ActionResult CheckoutOrder()
         {
+            if (CheckRole("Client"))
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             Models.User user = Session["User"] as Models.User;
             List<Order> orders = db.Orders.Where(x => x.UserID == user.ID).ToList();
             return View(orders);
         }
         public ActionResult OrderDetails(int ID)
         {
+            if (CheckRole("Client"))
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
             List<OrderDetail> orderDetails = db.OrderDetails.Where(x => x.OrderID.Value == ID).ToList();
             return View(orderDetails);
         }

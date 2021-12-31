@@ -14,16 +14,7 @@ namespace CosmeticsShop.Models
     
     public partial class Role
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
-        {
-            this.UserType_Role = new HashSet<UserType_Role>();
-        }
-    
         public int ID { get; set; }
         public string Name { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserType_Role> UserType_Role { get; set; }
     }
 }

@@ -94,14 +94,6 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="UserType_Role">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserTypeID" Type="int" />
-          <Property Name="RoleID" Type="int" />
-        </EntityType>
         <Association Name="FK__Message__FromUse__36B12243">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Message" Type="Self.Message" Multiplicity="*" />
@@ -198,30 +190,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserType___RoleI__2B3F6F97">
-          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
-          <End Role="UserType_Role" Type="Self.UserType_Role" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Roles">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserType_Role">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserType___UserT__2C3393D0">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="UserType_Role" Type="Self.UserType_Role" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserType_Role">
-              <PropertyRef Name="UserTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ShoppingModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
@@ -231,7 +199,6 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserType_Role" EntityType="Self.UserType_Role" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Message__FromUse__36B12243" Association="Self.FK__Message__FromUse__36B12243">
             <End Role="Users" EntitySet="Users" />
             <End Role="Message" EntitySet="Message" />
@@ -264,14 +231,6 @@
             <End Role="UserType" EntitySet="UserType" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserType___RoleI__2B3F6F97" Association="Self.FK__UserType___RoleI__2B3F6F97">
-            <End Role="Roles" EntitySet="Roles" />
-            <End Role="UserType_Role" EntitySet="UserType_Role" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserType___UserT__2C3393D0" Association="Self.FK__UserType___UserT__2C3393D0">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserType_Role" EntitySet="UserType_Role" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -286,7 +245,6 @@
           <EntitySet Name="Roles" EntityType="ShoppingModel.Role" />
           <EntitySet Name="Users" EntityType="ShoppingModel.User" />
           <EntitySet Name="UserTypes" EntityType="ShoppingModel.UserType" />
-          <EntitySet Name="UserType_Role" EntityType="ShoppingModel.UserType_Role" />
           <AssociationSet Name="FK__Products__Catego__239E4DCF" Association="ShoppingModel.FK__Products__Catego__239E4DCF">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
@@ -315,17 +273,9 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserType___RoleI__2B3F6F97" Association="ShoppingModel.FK__UserType___RoleI__2B3F6F97">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="UserType_Role" EntitySet="UserType_Role" />
-          </AssociationSet>
           <AssociationSet Name="FK__Users__UserTypeI__286302EC" Association="ShoppingModel.FK__Users__UserTypeI__286302EC">
             <End Role="UserType" EntitySet="UserTypes" />
             <End Role="User" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK__UserType___UserT__2C3393D0" Association="ShoppingModel.FK__UserType___UserT__2C3393D0">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserType_Role" EntitySet="UserType_Role" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Category">
@@ -404,7 +354,6 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="UserType_Role" Relationship="ShoppingModel.FK__UserType___RoleI__2B3F6F97" FromRole="Role" ToRole="UserType_Role" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -425,7 +374,6 @@
           <NavigationProperty Name="Orders" Relationship="ShoppingModel.FK__Orders__UserID__267ABA7A" FromRole="User" ToRole="Order" />
           <NavigationProperty Name="Products" Relationship="ShoppingModel.FK__Products__Create__276EDEB3" FromRole="User" ToRole="Product" />
           <NavigationProperty Name="UserType" Relationship="ShoppingModel.FK__Users__UserTypeI__286302EC" FromRole="User" ToRole="UserType" />
-          <NavigationProperty Name="UserType_Role" Relationship="ShoppingModel.FK__UserType___UserT__2C3393D0" FromRole="User" ToRole="UserType_Role" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -434,16 +382,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="ShoppingModel.FK__Users__UserTypeI__286302EC" FromRole="UserType" ToRole="User" />
-        </EntityType>
-        <EntityType Name="UserType_Role">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserTypeID" Type="Int32" />
-          <Property Name="RoleID" Type="Int32" />
-          <NavigationProperty Name="Role" Relationship="ShoppingModel.FK__UserType___RoleI__2B3F6F97" FromRole="UserType_Role" ToRole="Role" />
-          <NavigationProperty Name="User" Relationship="ShoppingModel.FK__UserType___UserT__2C3393D0" FromRole="UserType_Role" ToRole="User" />
         </EntityType>
         <Association Name="FK__Products__Catego__239E4DCF">
           <End Type="ShoppingModel.Category" Role="Category" Multiplicity="0..1" />
@@ -529,18 +467,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserType___RoleI__2B3F6F97">
-          <End Type="ShoppingModel.Role" Role="Role" Multiplicity="0..1" />
-          <End Type="ShoppingModel.UserType_Role" Role="UserType_Role" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserType_Role">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Users__UserTypeI__286302EC">
           <End Type="ShoppingModel.UserType" Role="UserType" Multiplicity="0..1" />
           <End Type="ShoppingModel.User" Role="User" Multiplicity="*" />
@@ -549,18 +475,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="User">
-              <PropertyRef Name="UserTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__UserType___UserT__2C3393D0">
-          <End Type="ShoppingModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="ShoppingModel.UserType_Role" Role="UserType_Role" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserType_Role">
               <PropertyRef Name="UserTypeID" />
             </Dependent>
           </ReferentialConstraint>
@@ -664,15 +578,6 @@
             <EntityTypeMapping TypeName="ShoppingModel.UserType">
               <MappingFragment StoreEntitySet="UserType">
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserType_Role">
-            <EntityTypeMapping TypeName="ShoppingModel.UserType_Role">
-              <MappingFragment StoreEntitySet="UserType_Role">
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
-                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

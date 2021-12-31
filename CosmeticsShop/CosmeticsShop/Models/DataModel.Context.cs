@@ -33,6 +33,5 @@ namespace CosmeticsShop.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<UserType_Role> UserType_Role { get; set; }
     }
 }
