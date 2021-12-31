@@ -61,7 +61,17 @@ namespace CosmeticsShop.Controllers
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }
-
+        public ActionResult CheckoutOrder()
+        {
+            Models.User user = Session["User"] as Models.User;
+            List<Order> orders = db.Orders.Where(x => x.UserID == user.ID).ToList();
+            return View(orders);
+        }
+        public ActionResult OrderDetails(int ID)
+        {
+            List<OrderDetail> orderDetails = db.OrderDetails.Where(x => x.OrderID.Value == ID).ToList();
+            return View(orderDetails);
+        }
         public ActionResult Complete(int ID)
         {
             Order order = db.Orders.Find(ID);
@@ -78,7 +88,7 @@ namespace CosmeticsShop.Controllers
                 product.PurchasedCount += item.Quantity;
                 db.SaveChanges();
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("CheckoutOrder");
         }
     }
 }
