@@ -78,7 +78,7 @@ namespace CosmeticsShop.Controllers
             Session.Remove("Cart");
             //update paid
             Models.Order order = db.Orders.Find(Convert.ToInt32(Session["OrderId"]));
-            order.Status = "Paid";
+            order.IsPaid = true;
             db.SaveChanges();
             return RedirectToAction("Message", "Cart", new { mess = "Đặt hàng và thanh toán thành công" });
         }
@@ -260,7 +260,7 @@ namespace CosmeticsShop.Controllers
                 Session.Remove("Cart");
                 //update paid
                 Models.Order order = db.Orders.Find(Convert.ToInt32(Session["OrderId"]));
-                order.Status = "Paid";
+                order.IsPaid = true;
                 db.SaveChanges();
                 Session.Remove("OrderID");
                 ViewBag.message = "Thanh toán thành công";

@@ -11,6 +11,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <EntityType Name="OrderDetails">
           <Key>
@@ -22,6 +23,7 @@
           <Property Name="ProductPrice" Type="int" />
           <Property Name="Quantity" Type="int" />
           <Property Name="OrderID" Type="int" />
+          <Property Name="ProductImage" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -32,6 +34,7 @@
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="DateOrder" Type="datetime" />
           <Property Name="DateShip" Type="datetime" />
+          <Property Name="IsPaid" Type="bit" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -278,6 +281,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Products" Relationship="ShoppingModel.FK__Products__Catego__239E4DCF" FromRole="Category" ToRole="Product" />
         </EntityType>
         <EntityType Name="OrderDetail">
@@ -290,6 +294,7 @@
           <Property Name="ProductPrice" Type="Int32" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="OrderID" Type="Int32" />
+          <Property Name="ProductImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Order" Relationship="ShoppingModel.FK__OrderDeta__Order__25869641" FromRole="OrderDetail" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="ShoppingModel.FK__OrderDeta__Produ__24927208" FromRole="OrderDetail" ToRole="Product" />
         </EntityType>
@@ -302,6 +307,7 @@
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DateOrder" Type="DateTime" Precision="3" />
           <Property Name="DateShip" Type="DateTime" Precision="3" />
+          <Property Name="IsPaid" Type="Boolean" />
           <NavigationProperty Name="OrderDetails" Relationship="ShoppingModel.FK__OrderDeta__Order__25869641" FromRole="Order" ToRole="OrderDetail" />
           <NavigationProperty Name="User" Relationship="ShoppingModel.FK__Orders__UserID__267ABA7A" FromRole="Order" ToRole="User" />
         </EntityType>
@@ -467,7 +473,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -476,6 +482,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="ShoppingModel.Category">
               <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -484,6 +491,7 @@
           <EntitySetMapping Name="OrderDetails">
             <EntityTypeMapping TypeName="ShoppingModel.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
@@ -496,6 +504,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="ShoppingModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
                 <ScalarProperty Name="DateShip" ColumnName="DateShip" />
                 <ScalarProperty Name="DateOrder" ColumnName="DateOrder" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

@@ -61,5 +61,24 @@ namespace CosmeticsShop.Controllers
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }
+
+        public ActionResult Complete(int ID)
+        {
+            Order order = db.Orders.Find(ID);
+            order.Status = "Complete";
+            order.DateShip = DateTime.Now;
+            db.SaveChanges();
+
+            // Cập nhật sản phẩm
+            List<OrderDetail> orderDetails = db.OrderDetails.Where(x => x.OrderID.Value == ID).ToList();
+            foreach (var item in orderDetails)
+            {
+                Product product = db.Products.Find(item.ProductID);
+                product.Quantity -= item.Quantity;
+                product.PurchasedCount += item.Quantity;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
     }
 }

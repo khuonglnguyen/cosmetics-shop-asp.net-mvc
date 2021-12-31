@@ -20,6 +20,7 @@ namespace CosmeticsShop.Models
         public Nullable<int> ProductPrice { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> OrderID { get; set; }
+        public string ProductImage { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0b8fe57f66ea41c0aa51596792d71e96" Name="Diagram1">
-        <EntityTypeShape EntityType="ShoppingModel.Category" Width="1.5" PointX="6" PointY="2.625" />
-        <EntityTypeShape EntityType="ShoppingModel.OrderDetail" Width="1.5" PointX="10.5" PointY="8.5" />
-        <EntityTypeShape EntityType="ShoppingModel.Order" Width="1.5" PointX="5.25" PointY="12.75" />
-        <EntityTypeShape EntityType="ShoppingModel.Product" Width="1.5" PointX="8.25" PointY="4.375" />
-        <EntityTypeShape EntityType="ShoppingModel.Role" Width="1.5" PointX="3" PointY="1.625" />
-        <EntityTypeShape EntityType="ShoppingModel.User" Width="1.5" PointX="3" PointY="4.5" />
-        <EntityTypeShape EntityType="ShoppingModel.UserType" Width="1.5" PointX="0.75" PointY="5.625" />
-        <EntityTypeShape EntityType="ShoppingModel.UserType_Role" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="ShoppingModel.Category" Width="1.5" PointX="3" PointY="1.625" />
+        <EntityTypeShape EntityType="ShoppingModel.OrderDetail" Width="1.5" PointX="7.5" PointY="7.125" />
+        <EntityTypeShape EntityType="ShoppingModel.Order" Width="1.5" PointX="5.25" PointY="10.125" />
+        <EntityTypeShape EntityType="ShoppingModel.Product" Width="1.5" PointX="5.25" PointY="4.5" />
+        <EntityTypeShape EntityType="ShoppingModel.Role" Width="1.5" PointX="6" PointY="1.75" />
+        <EntityTypeShape EntityType="ShoppingModel.User" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="ShoppingModel.UserType" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="ShoppingModel.UserType_Role" Width="1.5" PointX="8.25" PointY="3.5" />
         <AssociationConnector Association="ShoppingModel.FK__Products__Catego__239E4DCF" />
         <AssociationConnector Association="ShoppingModel.FK__OrderDeta__Order__25869641" />
         <AssociationConnector Association="ShoppingModel.FK__OrderDeta__Produ__24927208" />

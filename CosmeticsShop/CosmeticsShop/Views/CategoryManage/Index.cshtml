@@ -1,6 +1,6 @@
-﻿@model List<CosmeticsShop.Models.Product>
+﻿@model List<CosmeticsShop.Models.Category>
 @{
-    ViewBag.Title = "Danh sách sản phẩm";
+    ViewBag.Title = "Danh sách danh mục";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <!-- Content Header (Page header) -->
@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Quản lý sản phẩm</h1>
+                <h1 class="m-0">Quản lý danh mục</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -20,14 +20,14 @@
             <div class="card-header">
                 @if (string.IsNullOrEmpty(Request.Params["keyword"]))
                 {
-                    <h3 class="card-title">Danh sách sản phẩm</h3>
+                    <h3 class="card-title">Danh sách danh mục</h3>
                 }
                 else
                 {
-                    <h3 class="card-title">Danh sách sản phẩm với từ khóa "@Request.Params["keyword"]"</h3>
+                    <h3 class="card-title">Danh sách danh mục với từ khóa "@Request.Params["keyword"]"</h3>
                 }
                 <div class="card-tools">
-                    <form action="/ProductManage/" method="get">
+                    <form action="/CategoryManage/" method="get">
                         <div class="input-group input-group-sm" style="width: 150px;">
                             <input type="text" name="keyword" class="form-control float-right" placeholder="Tìm kiếm..." required>
                             <div class="input-group-append">
@@ -46,9 +46,6 @@
                         <tr>
                             <th>ID</th>
                             <th>Tên</th>
-                            <th>Hình ảnh</th>
-                            <th>Người tạo</th>
-                            <th>Đơn giá</th>
                             <th>Trạng thái</th>
                             <th>Thao tác</th>
                         </tr>
@@ -61,9 +58,6 @@
                                 <tr>
                                     <td>@item.ID</td>
                                     <td>@item.Name</td>
-                                    <td><img src="~/Content/images/@item.Image1" alt="Alternate Text" style="width:50px;height:80px" /></td>
-                                    <td>@item.User.Name</td>
-                                    <td>@item.Price.Value.ToString("#,##")₫</td>
                                     @if (item.IsActive.Value)
                                     {
                                         <td><span class="badge bg-success">Kích hoạt</span></td>
@@ -75,13 +69,13 @@
                                     <td>
                                         @if (item.IsActive.Value)
                                         {
-                                            <button onclick="location.href='/ProductManage/ToggleActive/@item.ID'">Khóa</button>
+                                            <button onclick="location.href='/CategoryManage/ToggleActive/@item.ID'">Khóa</button>
                                         }
                                         else
                                         {
-                                            <button onclick="location.href='/ProductManage/ToggleActive/@item.ID'">Mở</button>
+                                            <button onclick="location.href='/CategoryManage/ToggleActive/@item.ID'">Mở</button>
                                         }
-                                        <button onclick="location.href='/ProductManage/Details/@item.ID'">Chi tiết/Sửa</button>
+                                        <button onclick="location.href='/CategoryManage/Details/@item.ID'">Chi tiết/Sửa</button>
                                     </td>
                                 </tr>
                             }

@@ -98,6 +98,7 @@ namespace CosmeticsShop.Controllers
             order.DateShip = DateTime.Now.AddDays(3);
             order.Status = "Processing";
             order.UserID = user.ID;
+            order.IsPaid = false;
             db.Orders.Add(order);
             db.SaveChanges();
             int o = db.Orders.OrderByDescending(p => p.ID).FirstOrDefault().ID;
@@ -112,6 +113,7 @@ namespace CosmeticsShop.Controllers
                 orderDetail.Quantity = item.Quantity;
                 orderDetail.ProductPrice = item.ProductPrice;
                 orderDetail.ProductName = item.ProductName;
+                orderDetail.ProductImage = item.ProductImage;
                 db.OrderDetails.Add(orderDetail);
             }
             db.SaveChanges();

@@ -134,7 +134,9 @@
     <Compile Include="Config\PaypalConfiguration.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Controllers\CategoryManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderManageController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductManageController.cs" />
@@ -2284,6 +2286,10 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\ProductManage\Index.cshtml" />
     <Content Include="Views\ProductManage\Details.cshtml" />
+    <Content Include="Views\CategoryManage\Index.cshtml" />
+    <Content Include="Views\CategoryManage\Details.cshtml" />
+    <Content Include="Views\OrderManage\Index.cshtml" />
+    <Content Include="Views\OrderManage\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
