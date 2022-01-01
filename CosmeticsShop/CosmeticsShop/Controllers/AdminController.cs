@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CosmeticsShop.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,18 +9,27 @@ namespace CosmeticsShop.Controllers
 {
     public class AdminController : Controller
     {
+        ShoppingEntities db = new ShoppingEntities();
         // GET: Admin
         public ActionResult Index()
         {
             if (CheckRole("Admin"))
             {
-                return View();
+
             }
             else if (CheckRole("CSKH"))
             {
-                return View();
-            } 
-            return RedirectToAction("Index","Home");
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            ViewBag.TotalOrder = db.Orders.Count(x => x.Status == "Complete");
+            ViewBag.TotalMoney = db.Orders.Where(x => x.Status == "Complete").ToList().Sum(x => x.OrderDetails.Sum(n => n.ProductPrice * n.Quantity));
+            ViewBag.TotalClient = db.Users.Count(x => x.UserType.Name == "Client");
+            ViewBag.TotalProduct = db.Products.Count(x => x.IsActive == true);
+            return View();
         }
         public bool CheckRole(string type)
         {
