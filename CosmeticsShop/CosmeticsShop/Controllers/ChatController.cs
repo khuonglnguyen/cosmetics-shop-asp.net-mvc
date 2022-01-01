@@ -10,8 +10,25 @@ namespace CosmeticsShop.Controllers
     public class ChatController : Controller
     {
         ShoppingEntities db = new ShoppingEntities();
+        public bool CheckRole(string type)
+        {
+            Models.User user = Session["User"] as Models.User;
+            if (user != null && user.UserType.Name == type)
+            {
+                return true;
+            }
+            return false;
+        }
         public ActionResult Index()
         {
+            if (CheckRole("CSKH"))
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Admin");
+            }
             User user = Session["User"] as User;
             IEnumerable<User> listUser = db.Users.ToList();
             List<Message> messages = new List<Message>();
@@ -27,6 +44,14 @@ namespace CosmeticsShop.Controllers
         }
         public ActionResult Chating(int WithUserID, int MessageID = 0)
         {
+            if (CheckRole("CSKH"))
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Admin");
+            }
             IEnumerable<Message> listMessage;
             if (MessageID != 0)
             {

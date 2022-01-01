@@ -99,7 +99,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -142,6 +142,22 @@
                                 <i class="nav-icon fas fa-envelope"></i>
                                 <p>
                                     Chat với KH
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("Index","Statistic",new { from=DateTime.Now,to=DateTime.Now})" class="nav-link">
+                                <i class="nav-icon fas fa-chart-area"></i>
+                                <p>
+                                    Thống kê
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Home/SignOut" class="nav-link">
+                                <i class="nav-icon fas fa-arrow-alt-circle-right"></i>
+                                <p>
+                                    Đăng xuất
                                 </p>
                             </a>
                         </li>

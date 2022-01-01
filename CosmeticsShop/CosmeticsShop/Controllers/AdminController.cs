@@ -24,7 +24,7 @@ namespace CosmeticsShop.Controllers
         public bool CheckRole(string type)
         {
             Models.User user = Session["User"] as Models.User;
-            if (user.UserType.Name == type)
+            if (user != null && user.UserType.Name == type)
             {
                 return true;
             }
