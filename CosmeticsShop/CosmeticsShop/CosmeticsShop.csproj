@@ -2360,6 +2360,7 @@
     <Content Include="Views\Chat\Chating.cshtml" />
     <Content Include="Views\Statistic\Index.cshtml" />
     <Content Include="Views\ProductManage\Add.cshtml" />
+    <Content Include="Views\CategoryManage\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

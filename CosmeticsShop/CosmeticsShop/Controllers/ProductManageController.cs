@@ -123,7 +123,7 @@ namespace CosmeticsShop.Controllers
             {
                 return RedirectToAction("Index", "Admin");
             }
-            ViewBag.CategoryList = db.Categories.ToList();
+            ViewBag.CategoryList = db.Categories.Where(x => x.IsActive == true).ToList();
             return View();
         }
         [HttpPost]
@@ -166,7 +166,7 @@ namespace CosmeticsShop.Controllers
             db.Products.Add(product);
             db.SaveChanges();
 
-            ViewBag.CategoryList = db.Categories.ToList();
+            ViewBag.CategoryList = db.Categories.Where(x => x.IsActive == true).ToList();
             ViewBag.Message = "Thêm thành công";
             return View("Details", product);
         }

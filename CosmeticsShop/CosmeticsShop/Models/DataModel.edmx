@@ -34,7 +34,7 @@
           <Property Name="ProductPrice" Type="int" />
           <Property Name="Quantity" Type="int" />
           <Property Name="OrderID" Type="int" />
-          <Property Name="ProductImage" Type="nvarchar" MaxLength="50" />
+          <Property Name="ProductImage" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -310,7 +310,7 @@
           <Property Name="ProductPrice" Type="Int32" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="OrderID" Type="Int32" />
-          <Property Name="ProductImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductImage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Order" Relationship="ShoppingModel.FK__OrderDeta__Order__25869641" FromRole="OrderDetail" ToRole="Order" />
           <NavigationProperty Name="Product" Relationship="ShoppingModel.FK__OrderDeta__Produ__24927208" FromRole="OrderDetail" ToRole="Product" />
         </EntityType>

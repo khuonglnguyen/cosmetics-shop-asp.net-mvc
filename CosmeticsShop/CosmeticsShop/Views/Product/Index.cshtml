@@ -71,6 +71,7 @@
                                 <h3><a href="/Product/Details/@products[i].ID">@products[i].Name</a></h3>
                                 <div class="price">
                                     <h5 class="item_price">@products[i].Price.Value.ToString("#,##")₫</h5>
+                                    <p class="item_price">Đã bán: @products[i].PurchasedCount (Còn lại @products[i].Quantity)</p>
                                     <a href="#" class="item_add" data-id="@products[i].ID">Chọn mua</a>
                                     <div class="clearfix"> </div>
                                 </div>

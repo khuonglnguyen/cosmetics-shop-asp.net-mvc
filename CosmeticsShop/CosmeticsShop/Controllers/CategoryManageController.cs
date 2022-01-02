@@ -73,5 +73,26 @@ namespace CosmeticsShop.Controllers
         {
             return RedirectToAction("Index");
         }
+        public ActionResult Add()
+        {
+            if (CheckRole("Admin"))
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Add(Category category)
+        {
+            category.IsActive = true;
+            Category cate = db.Categories.Add(category);
+            db.SaveChanges();
+            ViewBag.Message = "Thêm thành công";
+            return View("Details", cate);
+        }
     }
 }

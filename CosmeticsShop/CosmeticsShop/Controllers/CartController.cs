@@ -143,7 +143,7 @@ namespace CosmeticsShop.Controllers
             {
                 return RedirectToAction("PaymentWithMomo", "Payment");
             }
-            SentMail("Đặt hàng thành công", user.Email, "khuongip564gb@gmail.com", "googlekhuongip564gb", "<p style=\"font-size:20px\">Cảm ơn bạn đã đặt hàng<br/>Mã đơn hàng của bạn là: " + order.ID);
+            SentMail("Đặt hàng thành công", user.Email, "khuongip564gb@gmail.com", "google..khuongip564gb", "<p style=\"font-size:20px\">Cảm ơn bạn đã đặt hàng<br/>Mã đơn hàng của bạn là: " + order.ID);
 
             Session.Remove("Cart");
             Session.Remove("OrderID");

@@ -78,32 +78,46 @@ namespace CosmeticsShop.Controllers
         [HttpGet]
         public JsonResult GetAllMessageChating(int UserID)
         {
-            IEnumerable<Message> listMessage1 = db.Messages.Where(x => x.FromUserID == UserID || x.ToUserID == UserID).OrderBy(x => x.CreatedDate);
-            var listMessage = listMessage1.Select(x =>
-            new
+            try
             {
-                ID = x.ID,
-                FromUserID = x.FromUserID,
-                Content = x.Content,
-                CreatedDate = x.CreatedDate.Value,
-                FromUserName = x.User.Name + " (" + x.User.UserType.Name + ")",
-                FromAvatarUser = x.User.Avatar
-            });
-            return Json(listMessage, JsonRequestBehavior.AllowGet);
+                IEnumerable<Message> listMessage1 = db.Messages.Where(x => x.FromUserID == UserID || x.ToUserID == UserID).OrderBy(x => x.CreatedDate).ToList();
+                var listMessage = listMessage1.Select(x =>
+                new
+                {
+                    ID = x.ID,
+                    FromUserID = x.FromUserID,
+                    Content = x.Content,
+                    CreatedDate = x.CreatedDate.Value,
+                    FromUserName = x.User.Name + " (" + x.User.UserType.Name + ")",
+                    FromAvatarUser = x.User.Avatar
+                });
+                return Json(listMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
         [AllowAnonymous]
         [HttpGet]
         public JsonResult GetLastMessageClient(int UserID)
         {
-            Message message = db.Messages.Where(x => x.FromUserID == UserID).OrderBy(x => x.CreatedDate).ToList().LastOrDefault();
-            return Json(new
+            try
             {
-                FromUserID = message.FromUserID,
-                Content = message.Content,
-                CreatedDate = message.CreatedDate.Value,
-                FromUserName = message.User.Name + " (" + message.User.UserType.Name + ")",
-                FromAvatarUser = message.User.Avatar
-            }, JsonRequestBehavior.AllowGet);
+                Message message = db.Messages.Where(x => x.FromUserID == UserID).OrderBy(x => x.CreatedDate).ToList().LastOrDefault();
+                return Json(new
+                {
+                    FromUserID = message.FromUserID,
+                    Content = message.Content,
+                    CreatedDate = message.CreatedDate.Value,
+                    FromUserName = message.User.Name + " (" + message.User.UserType.Name + ")",
+                    FromAvatarUser = message.User.Avatar
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
         [AllowAnonymous]
         [HttpPost]
@@ -153,8 +167,15 @@ namespace CosmeticsShop.Controllers
         public JsonResult GetNotiMessage()
         {
             User user = Session["User"] as User;
-            var listMessage = db.Messages.Where(x => x.Send == false && x.FromUserID != user.ID).ToList().Select(x => new { ID = x.ID, FromUserID = x.FromUserID, FromUserAvatar = x.User.Avatar, FromUserName = x.User.Name, CreatedDate = (DateTime.Now - x.CreatedDate.Value).Minutes }); ;
-            return Json(listMessage, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var listMessage = db.Messages.Where(x => x.Send == false && x.FromUserID != user.ID).ToList().Select(x => new { ID = x.ID, FromUserID = x.FromUserID, FromUserAvatar = x.User.Avatar, FromUserName = x.User.Name, CreatedDate = (DateTime.Now - x.CreatedDate.Value).Minutes }); ;
+                return Json(listMessage, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

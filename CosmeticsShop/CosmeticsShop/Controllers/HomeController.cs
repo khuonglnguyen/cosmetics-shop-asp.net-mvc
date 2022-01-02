@@ -16,7 +16,7 @@ namespace CosmeticsShop.Controllers
             {
                 Session["Cart"] = new List<ItemCart>();
             }
-            ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true && x.PurchasedCount > 0).OrderByDescending(x=>x.PurchasedCount).ToList();
+            ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true && x.PurchasedCount > 0).OrderByDescending(x => x.PurchasedCount).ToList();
             return View();
         }
         public ActionResult SignUp()
@@ -26,17 +26,22 @@ namespace CosmeticsShop.Controllers
         [HttpPost]
         public ActionResult SignUp(Models.User user)
         {
+            Models.User userAdded = new Models.User();
             try
             {
                 user.Captcha = new Random().Next(100000, 999999).ToString();
                 user.IsConfirm = false;
-                db.Users.Add(user);
+                user.UserTypeID = 3;
+                user.Address = "pr.jpg";
+                userAdded = db.Users.Add(user);
+                db.SaveChanges();
             }
             catch (Exception)
             {
                 ViewBag.Message = "Đăng ký thất bại";
             }
-            return View();
+            ViewBag.Message = "Đăng ký thất bại";
+            return RedirectToAction("ConfirmEmail", "User", new { ID = userAdded.ID });
         }
         public ActionResult SignIn()
         {

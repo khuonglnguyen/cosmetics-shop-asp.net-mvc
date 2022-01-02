@@ -74,8 +74,8 @@ namespace CosmeticsShop.Controllers
             ws.Cells["A3"].Value = "Ngày lập";
             ws.Cells["B3"].Value = DateTime.Now.ToShortDateString();
 
-            ws.Cells["A6"].Value = "Mã Hóa Đơn";
-            ws.Cells["B6"].Value = "Tên Khách Hàng Thành Viên";
+            ws.Cells["A6"].Value = "Mã HĐ";
+            ws.Cells["B6"].Value = "Tên Khách Hàng";
             ws.Cells["C6"].Value = "Ngày Đặt";
             ws.Cells["D6"].Value = "Ngày Giao";
             ws.Cells["E6"].Value = "Tình Trạng";
