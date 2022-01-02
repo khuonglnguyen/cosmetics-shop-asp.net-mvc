@@ -11,16 +11,24 @@ namespace CosmeticsShop.Controllers
     {
         ShoppingEntities db = new ShoppingEntities();
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Index(int CategoryID = 0)
         {
-            ViewBag.ListCategory = db.Categories.ToList();
-            ViewBag.ListProduct = db.Products.ToList();
+            ViewBag.ListCategory = db.Categories.Where(x => x.IsActive == true).ToList();
+            if (CategoryID != 0)
+            {
+                ViewBag.NamePage = "Danh mục " + db.Categories.Find(CategoryID).Name;
+                ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true && x.CategoryID == CategoryID).ToList();
+            }
+            else
+            {
+                ViewBag.NamePage = "Tất cả sản phẩm";
+                ViewBag.ListProduct = db.Products.Where(x => x.IsActive == true).ToList();
+            }
             return View();
         }
         public ActionResult Details(int ID)
         {
-            ViewBag.ListCategory = db.Categories.ToList();
-            Product product = db.Products.Single(x => x.ID == ID);
+            Product product = db.Products.Find(ID);
             return View(product);
         }
     }

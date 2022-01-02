@@ -21,14 +21,14 @@ namespace CosmeticsShop.Controllers
                 Session["Cart"] = new List<ItemCart>();
             }
             List<ItemCart> itemCarts = Session["Cart"] as List<ItemCart>;
+            // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
+            ItemCart check = itemCarts.FirstOrDefault(x => x.ProductID == ProductID);
             // Kiểm tra số lượng tồn
-            if (itemCarts.Count > 0 && product.Quantity <= itemCarts.FirstOrDefault(x => x.ProductID == product.ID).Quantity)
+            if (itemCarts.Count > 0 && check!= null && product.Quantity <= check.Quantity)
             {
                 return Json(new { status = false }, JsonRequestBehavior.AllowGet);
             }
-            // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
             // Nếu tồn tại thì + số lượng lên 1
-            ItemCart check = itemCarts.FirstOrDefault(x => x.ProductID == ProductID);
             if (check != null)
             {
                 for (int i = 0; i < itemCarts.Count; i++)
@@ -56,21 +56,38 @@ namespace CosmeticsShop.Controllers
         public JsonResult UpdateQuantity(int ProductID, int Quantity)
         {
             List<ItemCart> itemCarts = Session["Cart"] as List<ItemCart>;
-            // Kiểm tra số lượng tồn
-            Product product = db.Products.SingleOrDefault(x => x.ID == ProductID);
-            if (itemCarts.Count > 0 && product.Quantity <= Quantity)
+            if (Quantity > 0)
             {
-                return Json(new { status = false }, JsonRequestBehavior.AllowGet);
+                // Kiểm tra số lượng tồn
+                Product product = db.Products.SingleOrDefault(x => x.ID == ProductID);
+                if (itemCarts.Count > 0 && product.Quantity <= Quantity)
+                {
+                    return Json(new { update = false }, JsonRequestBehavior.AllowGet);
+                }
             }
+
             for (int i = 0; i < itemCarts.Count; i++)
             {
                 if (itemCarts[i].ProductID == ProductID)
                 {
-                    itemCarts[i].Quantity = Quantity;
+                    if (Quantity > 0)
+                    {
+                        itemCarts[i].Quantity = Quantity;
+                        break;
+                    }
+                    else
+                    {
+                        itemCarts.RemoveAt(i);
+                        break;
+                    }
                 }
             }
             Session["Cart"] = itemCarts;
-            return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+            if (Quantity > 0)
+            {
+                return Json(new { update = true }, JsonRequestBehavior.AllowGet);
+            }
+            return Json(new { remove = true }, JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         public JsonResult GetSubTotal(int ProductID = 1)

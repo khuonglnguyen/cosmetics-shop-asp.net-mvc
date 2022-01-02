@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Sảm phẩm";
+    ViewBag.Title = ViewBag.NamePage;
     Layout = "~/Views/Shared/_HomeLayout.cshtml";
 
     List<CosmeticsShop.Models.Category> categories = ViewBag.ListCategory as List<CosmeticsShop.Models.Category>;
@@ -8,7 +8,7 @@
 }
 <script>
     $(document).ready(function () {
-        $('.item_add').click(function () {
+        $(".item_add").on('click', function () {
             event.preventDefault();
             var ID = $(this).data("id");
             $.ajax({
@@ -42,14 +42,14 @@
     <div class="container">
         <ol class="breadcrumb breadcrumb1 animated wow slideInLeft animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInLeft;">
             <li><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>Trang chủ</a></li>
-            <li class="active">Sản phẩm</li>
+            <li class="active">@ViewBag.NamePage</li>
         </ol>
     </div>
 </div>
 <!--content-->
 <div class="products">
     <div class="container">
-        <h2>Sản phẩm</h2>
+        <h2>@ViewBag.NamePage</h2>
         <div class="col-md-9">
             @if (products.Count > 0)
             {
@@ -58,17 +58,17 @@
                 <div class="content-top1">
                     @for (int i = count - 1; i < products.Count; i++)
                     {
-                        count += 1;
                         if (count % 3 == 0)
                         {
                             goto loop;
                         }
+                        count += 1;
                         <div class="col-md-4 col-md4">
                             <div class="col-md1 simpleCart_shelfItem">
-                                <a href="single.html">
-                                    <img class="img-responsive" src="~/Content/images/@products[i].Image1" alt="" />
+                                <a href="/Product/Details/@products[i].ID">
+                                    <img class="img-responsive" src="~/Content/images/@products[i].Image1" alt="" style="height:250px;width:200px" />
                                 </a>
-                                <h3><a href="single.html">@products[i].Name</a></h3>
+                                <h3><a href="/Product/Details/@products[i].ID">@products[i].Name</a></h3>
                                 <div class="price">
                                     <h5 class="item_price">@products[i].Price.Value.ToString("#,##")₫</h5>
                                     <a href="#" class="item_add" data-id="@products[i].ID">Chọn mua</a>
@@ -76,9 +76,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="clearfix"> </div>
                     }
+                    <div class="clearfix"> </div>
                 </div>
+            }
+            else
+            {
+                <h3>Không có sản phẩm nào...</h3>
             }
         </div>
         <div class="col-md-3 product-bottom">
@@ -89,7 +93,7 @@
                     @foreach (var item in categories)
                     {
                         <li class="item1">
-                            <a href="#">@item.Name</a>
+                            <a href="/Product/Index?CategoryID=@item.ID">@item.Name</a>
                         </li>
                     }
                 </ul>

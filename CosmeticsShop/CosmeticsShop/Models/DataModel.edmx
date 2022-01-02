@@ -56,9 +56,9 @@
           <Property Name="Price" Type="int" />
           <Property Name="CreatedBy" Type="int" />
           <Property Name="ViewCount" Type="int" />
-          <Property Name="Image1" Type="nvarchar" MaxLength="50" />
-          <Property Name="Image2" Type="nvarchar" MaxLength="50" />
-          <Property Name="Image3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image1" Type="nvarchar" MaxLength="500" />
+          <Property Name="Image2" Type="nvarchar" MaxLength="500" />
+          <Property Name="Image3" Type="nvarchar" MaxLength="500" />
           <Property Name="Quantity" Type="int" />
           <Property Name="PurchasedCount" Type="int" />
           <Property Name="Description" Type="nvarchar(max)" />
@@ -336,9 +336,9 @@
           <Property Name="Price" Type="Int32" />
           <Property Name="CreatedBy" Type="Int32" />
           <Property Name="ViewCount" Type="Int32" />
-          <Property Name="Image1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Image2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Image3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image1" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Image2" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Image3" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Int32" />
           <Property Name="PurchasedCount" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />

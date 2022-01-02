@@ -24,21 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href='//fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
     <!-- start menu -->
     <script src="~/Content/js/bootstrap.min.js"></script>
-    <script src="~/Content/js/simpleCart.min.js"></script>
     <!-- slide -->
-    <script src="~/Content/js/responsiveslides.min.js"></script>
-    <script>
-        $(function () {
-            $("#slider").responsiveSlides({
-                auto: true,
-                speed: 500,
-                namespace: "callbacks",
-                pager: true,
-            });
-        });
-    </script>
-    <script src="~/Content/js/notify.min.js"></script>
-
 </head>
 <body>
     <!--header-->
@@ -53,19 +39,34 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <a href="/Cart/Checkout">
                             <h3>
                                 <div class="total">
-                                    <span class="simpleCart_total"></span>
+                                    @{
+                                        List<CosmeticsShop.Models.ItemCart> itemCarts = Session["Cart"] as List<CosmeticsShop.Models.ItemCart>;
+                                        if (itemCarts != null && itemCarts.Count > 0)
+                                        {
+                                            <span class="simpleCart_total">@itemCarts.Sum(x => x.ProductPrice * x.Quantity).ToString("#,##")₫ (@itemCarts.Sum(x => x.Quantity))</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="simpleCart_total">0₫ (0)</span>
+                                        }
+                                    }
                                 </div>
                                 <img src="~/Content/images/cart.png" alt="" />
                             </h3>
                         </a>
-                        <p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
-
                     </div>
                 </div>
-                <div class="col-sm-2 number animated wow fadeInRight" data-wow-delay=".5s">
-                    <span><i class="glyphicon glyphicon-phone"></i>085 596 234</span>
-                    <p>Liên hệ</p>
-                </div>
+                @{
+                    CosmeticsShop.Models.User user = Session["User"] as CosmeticsShop.Models.User;
+
+                    if (user != null)
+                    {
+                        <input type="text" id="UserID" value="@user.ID" hidden />
+                        <div class="col-sm-2 number animated wow fadeInRight" data-wow-delay=".5s">
+                            <span><i class="glyphicon glyphicon-user"></i><a href="/User/CheckoutOrder">@user.Name</a></span>
+                        </div>
+                    }
+                }
                 <div class="col-sm-2 search animated wow fadeInRight" data-wow-delay=".5s">
                     <a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i> </a>
                 </div>
@@ -91,11 +92,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
                             <ul class="nav navbar-nav nav_1">
-                                <li><a href="index.html">Trang chủ</a></li>
-                                <li><a href="products.html">Sản phẩm</a></li>
-                                <li><a href="account.html">Đăng ký</a></li>
-                                <li><a href="account.html">Đăng nhập</a></li>
-                                <li class="last"><a href="contact.html">Giới thiệu</a></li>
+                                <li><a href="/">Trang chủ</a></li>
+                                <li><a href="/Product/">Sản phẩm</a></li>
+                                <li><a href="contact.html">Giới thiệu</a></li>
+                                @if (user != null)
+                                {
+                                    <li><a href="/Home/SignOut">Đăng xuất</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Home/SignUp">Đăng ký</a></li>
+                                    <li><a href="/Home/SignIn">Đăng nhập</a></li>
+                                }
                             </ul>
                         </div><!-- /.navbar-collapse -->
 
@@ -141,88 +149,183 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
     @RenderBody()
-    <!--footer-->
-    <div class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="col-md-6 top-footer">
-                    <h3>Follow Us On</h3>
-                    <div class="social-icons">
-                        <ul class="social">
-                            <li><a href="#"><i></i></a> </li>
-                            <li><a href="#"><i class="facebook"></i></a></li>
-                            <li><a href="#"><i class="google"></i> </a></li>
-                            <li><a href="#"><i class="linked"></i> </a></li>
-                        </ul>
-                        <div class="clearfix"></div>
+
+    <div class="row">
+        <div class="chatbox chatbox22 chatbox--tray">
+            <div class="chatbox__title">
+                <h5><a href="javascript:void()">Chat với chúng tôi</a></h5>
+                <!--<button class="chatbox__title__tray">
+                    <span></span>
+                </button>-->
+                <button class="chatbox__title__close">
+                    <span>
+                        <svg viewBox="0 0 12 12" width="12px" height="12px">
+                            <line stroke="#FFFFFF" x1="11.75" y1="0.25" x2="0.25" y2="11.75"></line>
+                            <line stroke="#FFFFFF" x1="11.75" y1="11.75" x2="0.25" y2="0.25"></line>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            @if (Session["User"] == null)
+            {
+                <div class="chatbox__body">
+                    <h5>Vui lòng đăng nhập để chat</h5>
+                </div>
+            }
+            else
+            {
+                <div class="chatbox__body">
+
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" required class="form-control input-sm chat_set_height" placeholder="Soạn tin nhắn..." tabindex="0" dir="ltr" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" contenteditable="true" />
+                        <span class="input-group-btn">
+                            <button class="btn bt_bg btn-sm" id="btn-chat">
+                                Gửi
+                            </button>
+                            <img src="~/Content/images/loading.gif" class="loading-send btn bt_bg btn-sm" style="display:none;" />
+                        </span>
                     </div>
                 </div>
-                <div class="col-md-6 top-footer1">
-                    <h3>Newsletter</h3>
-                    <form action="#" method="post">
-                        <input type="text" name="email" value="" onfocus="this.value='';" onblur="if (this.value == '') {this.value ='';}">
-                        <input type="submit" value="SUBSCRIBE">
-                    </form>
-                </div>
-                <div class="clearfix"> </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="col-md-3 footer-bottom-cate">
-                    <h6>Categories</h6>
-                    <ul>
-                        <li><a href="products.html">Curabitur sapien</a></li>
-                        <li><a href="single.html">Dignissim purus</a></li>
-                        <li><a href="men.html">Tempus pretium</a></li>
-                        <li><a href="products.html">Dignissim neque</a></li>
-                        <li><a href="single.html">Ornared id aliquet</a></li>
-
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-bottom-cate">
-                    <h6>Feature Projects</h6>
-                    <ul>
-                        <li><a href="products.html">Dignissim purus</a></li>
-                        <li><a href="men.html">Curabitur sapien</a></li>
-                        <li><a href="single.html">Tempus pretium</a></li>
-                        <li><a href="men.html">Dignissim neque</a></li>
-                        <li><a href="products.html">Ornared id aliquet</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-bottom-cate">
-                    <h6>Top Brands</h6>
-                    <ul>
-                        <li><a href="products.html">Tempus pretium</a></li>
-                        <li><a href="single.html">Curabitur sapien</a></li>
-                        <li><a href="men.html">Dignissim purus</a></li>
-                        <li><a href="single.html">Dignissim neque</a></li>
-                        <li><a href="men.html">Ornared id aliquet</a></li>
-
-
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-bottom-cate cate-bottom">
-                    <h6>Our Address</h6>
-                    <ul>
-                        <li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Address : 12th Avenue, 5th block, <span>Sydney.</span></li>
-                        <li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i>Email : <a href="mailto:info@example.com">info@example.com</a></li>
-                        <li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>Phone : +1234 567 567</li>
-                    </ul>
-                </div>
-                <div class="clearfix"> </div>
-                <p class="footer-class"> © 2016 Youth Fashion . All Rights Reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a> </p>
-            </div>
+            }
         </div>
     </div>
-    <!--footer-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(function () {
+                var chat = $.connection.chatHubs
+                chat.client.displayMessage = function () {
+                    getAllData();
+                }
+                $.connection.hub.start();
+                getAllData();
+            })
+            var lastMessID = 0;
+            function getAllData() {
+                var chatbox = $('.chatbox__body');
+                var userID = $('#UserID').val();
+                $.ajax({
+                    url: location.origin + "/Chat/GetAllMessageChating?UserID=" + userID,
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        chatbox.empty()
+                        if (data.length > 0) {
+                            $.each(data, function (i, model) {
+                                var date = new Date(parseInt(model.CreatedDate.substr(6)));
+                                if (model.FromUserID == userID) {
+                                    lastMessID = model.ID;
+                                    chatbox.append(
+                                        '<div class="chatbox__body__message chatbox__body__message--right" id="' + model.ID + '"' + '>' +
+                                        ' <div class="chatbox_timing">' +
+                                        '<ul>' +
+                                        '<li>' + date.getHours() + ':' + date.getMinutes() + '</li>' +
+                                        '</ul>' +
+                                        '</div>' +
+                                        '<img src="/Content/images/' + model.FromAvatarUser + '" alt="Picture">' +
+                                        '<div class="clearfix"></div>' +
+                                        ' <div class="ul_section_full">' +
+                                        ' <ul class="ul_msg">' +
+                                        '<li><strong>' + model.FromUserName + '</strong></li>' +
+                                        '<li>' + model.Content + '</li>' +
+                                        '</ul>' +
+                                        '<div class="clearfix"></div>' +
+                                        '</div>' +
+                                        '</div>'
+                                    );
+                                } else {
+                                    chatbox.append(
+                                        '<div class="chatbox__body__message chatbox__body__message--left" id="' + model.ID + '"' + '>' +
+                                        ' <div class="chatbox_timing">' +
+                                        '<ul>' +
+                                        '<li>' + date.getHours() + ':' + date.getMinutes() + '</li>' +
+                                        '</ul>' +
+                                        '</div>' +
+                                        '<img src="/Content/images/' + model.FromAvatarUser + '" alt="Picture">' +
+                                        '<div class="clearfix"></div>' +
+                                        ' <div class="ul_section_full">' +
+                                        ' <ul class="ul_msg">' +
+                                        '<li><strong>' + model.FromUserName + '</strong></li>' +
+                                        '<li>' + model.Content + '</li>' +
+                                        '</ul>' +
+                                        '<div class="clearfix"></div>' +
+                                        '</div>' +
+                                        '</div>'
+                                    );
+                                }
+                            })
+                        } else {
+                            chatbox.append(
+                                '<p>Chưa có tin nhắn...</p>'
+                            );
+                        }
+                    }
+                })
+                $(".chatbox__body").animate({ scrollTop: 2000000 });
+            }
+            function getLastData() {
+                var chatbox = $('.chatbox__body');
+                var userID = $('#UserID').val();
+                $.ajax({
+                    url: location.origin + "/Chat/GetLastMessageClient?UserID=" + userID,
+                    type: 'GET',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        var date = new Date(parseInt(data.CreatedDate.substr(6)));
+                        chatbox.append(
+                            '<div class="chatbox__body__message chatbox__body__message--right">' +
+                            ' <div class="chatbox_timing">' +
+                            '<ul>' +
+                            '<li>' + date.getHours() + ':' + date.getMinutes() + '</li>' +
+                            '</ul>' +
+                            '</div>' +
+                            '<img src="/Content/images/' + data.FromAvatarUser + '" alt="Picture">' +
+                            '<div class="clearfix"></div>' +
+                            ' <div class="ul_section_full">' +
+                            ' <ul class="ul_msg">' +
+                            '<li><strong>' + data.FromUserName + '</strong></li>' +
+                            '<li>' + data.Content + '</li>' +
+                            '</ul>' +
+                            '<div class="clearfix"></div>' +
+                            '</div>' +
+                            '</div>')
+                    }
+                })
+            }
+            $('#btn-chat').click(function send() {
+                var fromId = $('#UserID').val();
+                var content = $('#btn-input').val();
+                $.ajax({
+                    url: location.origin + "/Chat/Send",
+                    data: { FromUserID: fromId, ToUserID: 2, Content: content, Side: "Client" },
+                    type: 'POST',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        if (data.status) {
+                            $.notify("Đã gửi!", "success");
+                            $("#btn-chat").show();
+                            $(".loading-send").hide();
+                            getLastData();
+                            $('#btn-input').val("");
+                            $(".chatbox__body").animate({ scrollTop: 2000000 });
+                        } else {
+                            $.notify("Có lỗi xảy ra!", "error");
+                            return;
+                        }
+                    }
+                })
+                $("#btn-chat").hide();
+                $(".loading-send").show();
+            })
+        });
+    </script>
     <!-- slide -->
     <script src="~/Content/js/jquery.min.js"></script>
     <script src="~/Content/js/imagezoom.js"></script>
     <!-- start menu -->
     <script type="text/javascript" src="~/Content/js/memenu.js"></script>
     <script>$(document).ready(function () { $(".memenu").memenu(); });</script>
-    <script src="~/Content/js/simpleCart.min.js"></script>
     <!--initiate accordion-->
     <script type="text/javascript">
         $(function () {
@@ -243,6 +346,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         });
     </script>
+
+    <script src="~/Content/js/notify.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.2.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
+    <link href="~/Content/css/chatbox.css" rel="stylesheet" />
+    <script src="~/Content/js/chatbox.js"></script>
     <!-- FlexSlider -->
     <script defer src="~/Content/js/jquery.flexslider.js"></script>
     <link rel="stylesheet" href="~/Content/css/flexslider.css" type="text/css" media="screen" />

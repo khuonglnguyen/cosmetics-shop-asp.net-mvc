@@ -113,5 +113,62 @@ namespace CosmeticsShop.Controllers
         {
             return RedirectToAction("Index");
         }
+        public ActionResult Add()
+        {
+            if (CheckRole("Admin"))
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            ViewBag.CategoryList = db.Categories.ToList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Add(Product product, HttpPostedFileBase[] ImageUpload)
+        {
+            for (int i = 0; i < ImageUpload.Length; i++)
+            {
+                //Check content image
+                if (ImageUpload[i] != null && ImageUpload[i].ContentLength > 0)
+                {
+                    //Get file name
+                    var fileName = Path.GetFileName(ImageUpload[i].FileName);
+                    //Get path
+                    var path = Path.Combine(Server.MapPath("~/Content/images"), fileName);
+                    //Check exitst
+                    if (!System.IO.File.Exists(path))
+                    {
+                        //Add image into folder
+                        ImageUpload[i].SaveAs(path);
+                    }
+                }
+            }
+
+            if (ImageUpload[0] != null)
+            {
+                product.Image1 = ImageUpload[0].FileName;
+            }
+            if (ImageUpload[1] != null)
+            {
+                product.Image2 = ImageUpload[1].FileName;
+            }
+            if (ImageUpload[2] != null)
+            {
+                product.Image3 = ImageUpload[2].FileName;
+            }
+            product.CreatedBy = (Session["User"] as Models.User).ID;
+            product.ViewCount = 0;
+            product.PurchasedCount = 0;
+            product.IsActive = true;
+            db.Products.Add(product);
+            db.SaveChanges();
+
+            ViewBag.CategoryList = db.Categories.ToList();
+            ViewBag.Message = "Thêm thành công";
+            return View("Details", product);
+        }
     }
 }

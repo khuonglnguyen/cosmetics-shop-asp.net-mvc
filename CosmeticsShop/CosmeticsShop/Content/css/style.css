@@ -275,7 +275,7 @@ ul.nav-list.list-inline li {
 .col-md3 h3 {
     color: #fff;
     font-size: 4em;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
     background: rgba(250, 3, 187, 0.5);
     padding: 0.3em;
@@ -291,7 +291,7 @@ ul.nav-list.list-inline li {
         font-size: 4em;
         color: #fa03bb;
         margin: 0;
-        font-family: 'Poiret One', cursive;
+        font-family: 'Roboto-Regular', cursive;
         font-weight: 700;
     }
 
@@ -315,7 +315,7 @@ ul.nav-list.list-inline li {
         color: #ffffff;
         margin: 1em 0 0;
         text-align: center;
-        font-family: 'Poiret One', cursive;
+        font-family: 'Roboto-Regular', cursive;
         font-weight: 700;
     }
 /*--header--*/
@@ -327,7 +327,7 @@ ul.nav-list.list-inline li {
         color: #403b37;
         font-size: 1em;
         text-decoration: none;
-        font-family: 'Poiret One', cursive;
+        font-family: 'Roboto-Regular', cursive;
         font-weight: 700;
     }
 
@@ -518,7 +518,7 @@ ul.callbacks_tabs.callbacks1_tabs {
     .col-md1 h3 a {
         color: #fa03bb;
         text-decoration: none;
-        font-family: 'Poiret One', cursive;
+        font-family: 'Roboto-Regular', cursive;
         font-weight: 700;
     }
 
@@ -668,7 +668,7 @@ ul.callbacks_tabs.callbacks1_tabs {
     font-size: 2em;
     color: #fa03bb;
     margin: 0 0 0.5em;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 
@@ -676,7 +676,7 @@ ul.callbacks_tabs.callbacks1_tabs {
     font-size: 2em;
     color: #fa03bb;
     margin: 0 0 0.5em;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 
@@ -717,7 +717,7 @@ ul.callbacks_tabs.callbacks1_tabs {
     font-size: 1.6em;
     color: #fa03bb;
     margin: 0 0 1em;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 
@@ -793,7 +793,7 @@ p.footer-class {
         color: #fa03bb;
         margin: 0 0px 1em;
         text-align: center;
-        font-family: 'Poiret One', cursive;
+        font-family: 'Roboto-Regular', cursive;
         font-weight: 700;
     }
 
@@ -884,7 +884,7 @@ p.footer-class {
     color: #fa03bb;
     font-size: 2em;
     margin: 0 15px 0.7em;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 
@@ -934,7 +934,7 @@ p.footer-class {
     font-size: 3em;
     margin: 0 0 1em;
     text-align: center;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 
@@ -1077,7 +1077,7 @@ ul.social {
     font-size: 3em;
     margin: 0 0 1em;
     text-align: center;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 
@@ -1217,7 +1217,7 @@ ul.social {
     font-size: 3em;
     text-align: center;
     margin: 0 0 1em;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 
@@ -1228,7 +1228,7 @@ ul.social {
 h3.cate {
     color: #fa03bb;
     font-size: 1.5em;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 
@@ -1364,7 +1364,7 @@ span.price-in1 {
     font-size: 1.5em;
     color: #fa03bb;
     line-height: 1.5em;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Roboto-Regular', cursive;
     font-weight: 700;
 }
 

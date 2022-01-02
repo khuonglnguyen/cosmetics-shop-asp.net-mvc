@@ -5,6 +5,38 @@
 
     List<CosmeticsShop.Models.Category> categories = ViewBag.ListCategory as List<CosmeticsShop.Models.Category>;
 }
+<script>
+    $(document).ready(function () {
+        $('.item_add').click(function () {
+            event.preventDefault();
+            var ID = $(this).data("id");
+            $.ajax({
+                url: '/Cart/AddItem',
+                data: {
+                    ProductID: ID
+                },
+                type: 'POST',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == true) {
+                        $.notify("Thêm vào giỏ hàng thành công!", "success");
+
+                        $.ajax({
+                            url: '/Cart/GetTotalCart',
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function (response) {
+                                $(".simpleCart_total").html(response.TotalPrice + "₫ (" + response.TotalQuantity + ")")
+                            },
+                        });
+                    } else {
+                        $.notify("Số lượng không đủ!", "error");
+                    }
+                },
+            });
+        })
+    });
+</script>
 <div class="breadcrumbs">
     <div class="container">
         <ol class="breadcrumb breadcrumb1 animated wow slideInLeft animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: slideInLeft;">
@@ -56,26 +88,10 @@
                         <div class="clearfix"> </div>
                     </div>
                     <label class="add-to item_price">@Model.Price.Value.ToString("#,##")₫</label>
-                    <a href="#" class="cart item_add">Chọn mua</a>
+                    <a href="#" class="cart item_add" data-id="@Model.ID">Chọn mua</a>
                 </div>
             </div>
             <div class="clearfix"> </div>
         </div>
-        <!----->
-        <div class="col-md-3 product-bottom">
-            <!--categories-->
-            <div class=" rsidebar span_1_of_left">
-                <h3 class="cate">Danh mục</h3>
-                <ul class="menu-drop">
-                    @foreach (var item in categories)
-                    {
-                        <li class="item1">
-                            <a href="#">@item.Name</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
-        <div class="clearfix"> </div>
     </div>
 </div>

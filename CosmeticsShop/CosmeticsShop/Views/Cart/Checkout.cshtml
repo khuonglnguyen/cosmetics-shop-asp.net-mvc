@@ -22,7 +22,7 @@
                 type: 'POST',
                 dataType: 'json',
                 success: function (response) {
-                    if (response.status == true) {
+                    if (response.update == true) {
                         $.notify("Cập nhật thành công!", "success");
 
                         $.ajax({
@@ -57,11 +57,20 @@
                                 $(".simpleCart_total").html(response.TotalPrice + "₫ (" + response.TotalQuantity + ")")
                             },
                         });
-                    } else {
+                    } else if (response.remove == true) {
+                        $.notify("Đã xóa sản phẩm trong giỏ hàng!", "success");
+                        setTimeout(function () { location.reload(); }, 1000);
+                    }
+                    else if (response.status == false) {
                         $.notify("Số lượng không đủ!", "error");
                         setTimeout(function () {
                                 window.location.reload();
                         }, 1500);
+                    } else {
+                        $.notify("Lỗi!", "error");
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1000);
                     }
                 },
             });
@@ -99,7 +108,7 @@
                             </div>
                             <div class="clearfix"> </div>
                         </td>
-                        <td class="check"><input type="number" class="qty" data-id="@item.ProductID" value="@item.Quantity" style="width:100px" min="1"></td>
+                        <td class="check"><input type="number" class="qty" data-id="@item.ProductID" value="@item.Quantity" style="width:100px" min="0"></td>
                         <td>@item.ProductPrice.ToString("#,##")₫</td>
                         <td id="@item.ProductID">@((item.ProductPrice * item.Quantity).ToString("#,##"))₫</td>
                     </tr>
@@ -116,12 +125,12 @@
             {
                 <p>Phương thức thanh toán:</p>
                 <form action="/Cart/AddOrder" method="post">
-                    <select name="payment">
+                    <select name="payment" >
                         <option value="cod">Tiền mặt (COD)</option>
                         <option value="paypal">Thanh toán với Paypal</option>
                         <option value="momo">Thanh toán với Momo</option>
                     </select> <br />
-                    <button class="to-buy">TIẾN HÀNH ĐẶT HÀNG</button>
+                    <button class="to-buy btn btn-warning">TIẾN HÀNH ĐẶT HÀNG</button>
                 </form>
             }
         }
