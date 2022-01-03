@@ -65,13 +65,6 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="CategoryID" Type="int" />
         </EntityType>
-        <EntityType Name="Roles">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="ID" />
@@ -196,7 +189,6 @@
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Message__FromUse__36B12243" Association="Self.FK__Message__FromUse__36B12243">
@@ -242,7 +234,6 @@
           <EntitySet Name="OrderDetails" EntityType="ShoppingModel.OrderDetail" />
           <EntitySet Name="Orders" EntityType="ShoppingModel.Order" />
           <EntitySet Name="Products" EntityType="ShoppingModel.Product" />
-          <EntitySet Name="Roles" EntityType="ShoppingModel.Role" />
           <EntitySet Name="Users" EntityType="ShoppingModel.User" />
           <EntitySet Name="UserTypes" EntityType="ShoppingModel.UserType" />
           <AssociationSet Name="FK__Products__Catego__239E4DCF" Association="ShoppingModel.FK__Products__Catego__239E4DCF">
@@ -347,13 +338,6 @@
           <NavigationProperty Name="Category" Relationship="ShoppingModel.FK__Products__Catego__239E4DCF" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="OrderDetails" Relationship="ShoppingModel.FK__OrderDeta__Produ__24927208" FromRole="Product" ToRole="OrderDetail" />
           <NavigationProperty Name="User" Relationship="ShoppingModel.FK__Products__Create__276EDEB3" FromRole="Product" ToRole="User" />
-        </EntityType>
-        <EntityType Name="Role">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -545,14 +529,6 @@
                 <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="ShoppingModel.Role">
-              <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>

@@ -236,9 +236,6 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Role.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -2150,6 +2147,7 @@
     <Content Include="Content\images\3.jpg" />
     <Content Include="Content\images\6.jpg" />
     <Content Include="Content\images\9.jpg" />
+    <Content Include="Content\images\banner.jpg" />
     <Content Include="Content\images\cart.png" />
     <Content Include="Content\images\ce.jpg" />
     <Content Include="Content\images\ce1.jpg" />
@@ -2180,6 +2178,7 @@
     <Content Include="Content\images\si1.jpg" />
     <Content Include="Content\images\si2.jpg" />
     <Content Include="Content\images\son.jpg" />
+    <Content Include="Content\images\source.jpg" />
     <Content Include="Content\images\t1.jpg" />
     <Content Include="Content\images\t10.jpg" />
     <Content Include="Content\images\t11.jpg" />
