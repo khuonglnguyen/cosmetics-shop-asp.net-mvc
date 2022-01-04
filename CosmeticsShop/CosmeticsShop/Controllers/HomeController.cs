@@ -26,6 +26,13 @@ namespace CosmeticsShop.Controllers
         [HttpPost]
         public ActionResult SignUp(Models.User user)
         {
+            Models.User check = db.Users.SingleOrDefault(x => x.Email == user.Email);
+            if (check != null)
+            {
+                ViewBag.Message = "Email đã tồn tại";
+                return View();
+            }
+
             Models.User userAdded = new Models.User();
             try
             {
@@ -39,8 +46,8 @@ namespace CosmeticsShop.Controllers
             catch (Exception)
             {
                 ViewBag.Message = "Đăng ký thất bại";
+                return View();
             }
-            ViewBag.Message = "Đăng ký thất bại";
             return RedirectToAction("ConfirmEmail", "User", new { ID = userAdded.ID });
         }
         public ActionResult SignIn()

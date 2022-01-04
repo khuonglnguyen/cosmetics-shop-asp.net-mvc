@@ -17,7 +17,7 @@
         @using (Html.BeginForm("SignUp", "Home", FormMethod.Post))
         {
             <div class="col-md-6  register-top-grid">
-
+                <h3>@ViewBag.Message</h3>
                 <div class="mation">
                     <span>Họ tên</span>
                     <input type="text" name="Name" required>
