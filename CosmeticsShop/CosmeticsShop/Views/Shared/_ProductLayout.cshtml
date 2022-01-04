@@ -295,7 +295,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 var content = $('#btn-input').val();
                 $.ajax({
                     url: location.origin + "/Chat/Send",
-                    data: { FromUserID: fromId, ToUserID: 2, Content: content, Side: "Client" },
+                    data: { FromUserID: fromId, ToUserID: 1, Content: content, Side: "Client" },
                     type: 'POST',
                     dataType: 'JSON',
                     success: function (data) {

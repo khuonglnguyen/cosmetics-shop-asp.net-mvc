@@ -17,10 +17,6 @@ namespace CosmeticsShop.Controllers
             {
 
             }
-            else if (CheckRole("CSKH"))
-            {
-
-            }
             else
             {
                 return RedirectToAction("Index", "Home");

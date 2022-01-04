@@ -21,13 +21,13 @@ namespace CosmeticsShop.Controllers
         }
         public ActionResult Index()
         {
-            if (CheckRole("CSKH"))
+            if (CheckRole("Admin"))
             {
 
             }
             else
             {
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Home");
             }
             User user = Session["User"] as User;
             IEnumerable<User> listUser = db.Users.ToList();
@@ -44,13 +44,13 @@ namespace CosmeticsShop.Controllers
         }
         public ActionResult Chating(int WithUserID, int MessageID = 0)
         {
-            if (CheckRole("CSKH"))
+            if (CheckRole("Admin"))
             {
 
             }
             else
             {
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("Index", "Home");
             }
             IEnumerable<Message> listMessage;
             if (MessageID != 0)
@@ -88,7 +88,7 @@ namespace CosmeticsShop.Controllers
                     FromUserID = x.FromUserID,
                     Content = x.Content,
                     CreatedDate = x.CreatedDate.Value,
-                    FromUserName = x.User.Name + " (" + x.User.UserType.Name + ")",
+                    FromUserName = x.User.Name,
                     FromAvatarUser = x.User.Avatar
                 });
                 return Json(listMessage, JsonRequestBehavior.AllowGet);
@@ -110,7 +110,7 @@ namespace CosmeticsShop.Controllers
                     FromUserID = message.FromUserID,
                     Content = message.Content,
                     CreatedDate = message.CreatedDate.Value,
-                    FromUserName = message.User.Name + " (" + message.User.UserType.Name + ")",
+                    FromUserName = message.User.Name,
                     FromAvatarUser = message.User.Avatar
                 }, JsonRequestBehavior.AllowGet);
             }

@@ -5,13 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="0b8fe57f66ea41c0aa51596792d71e96" Name="Diagram1">
-        <EntityTypeShape EntityType="ShoppingModel.Category" Width="1.5" PointX="5.25" PointY="10.125" />
+        <EntityTypeShape EntityType="ShoppingModel.Category" Width="1.5" PointX="6" PointY="10.875" />
         <EntityTypeShape EntityType="ShoppingModel.Message" Width="1.5" PointX="5.25" PointY="7.25" />
         <EntityTypeShape EntityType="ShoppingModel.OrderDetail" Width="1.5" PointX="7.5" PointY="3.75" />
         <EntityTypeShape EntityType="ShoppingModel.Order" Width="1.5" PointX="5.25" PointY="3.875" />
-        <EntityTypeShape EntityType="ShoppingModel.Product" Width="1.5" PointX="7.5" PointY="7.875" />
+        <EntityTypeShape EntityType="ShoppingModel.Product" Width="1.5" PointX="8.25" PointY="7.75" />
         <EntityTypeShape EntityType="ShoppingModel.User" Width="1.5" PointX="3" PointY="4.875" />
-        <EntityTypeShape EntityType="ShoppingModel.UserType" Width="1.5" PointX="3" PointY="9.25" />
+        <EntityTypeShape EntityType="ShoppingModel.UserType" Width="1.5" PointX="0.75" PointY="6" />
         <AssociationConnector Association="ShoppingModel.FK__Products__Catego__239E4DCF" />
         <AssociationConnector Association="ShoppingModel.FK__Message__FromUse__36B12243" />
         <AssociationConnector Association="ShoppingModel.FK__Message__ToUserI__37A5467C" />
