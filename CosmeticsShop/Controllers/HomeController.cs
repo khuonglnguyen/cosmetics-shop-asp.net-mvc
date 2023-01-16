@@ -37,8 +37,8 @@ namespace CosmeticsShop.Controllers
             Models.User userAdded = new Models.User();
             try
             {
-                //user.Captcha = new Random().Next(100000, 999999).ToString();
-                //user.IsConfirm = false;
+                user.Captcha = new Random().Next(100000, 999999).ToString();
+                user.IsConfirm = false;
                 user.UserTypeID = 2;
                 user.Address = "pr.jpg";
                 userAdded = db.Users.Add(user);
